@@ -4,3 +4,14 @@ font-family: monospace;
 background-color:black;
 color:#00FF00;
 }
+
+.rtxt {
+color:#FF0000;	
+}
+
+.rbtn {
+font-family: monospace;
+background-color:black;
+color:#FF0000;
+border-color: red;	
+}
