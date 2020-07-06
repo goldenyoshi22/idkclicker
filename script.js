@@ -52,7 +52,7 @@ game.prestiged = true
 updateThings()
 }
 function updateThings() {
-	$("number").innerHTML = "you have " + notation(game.greenpoints) + " green points and " + notation(game.greenpower.mul(game.redpoints.add(2).logBase(2))) + " green power"
+	$("number").innerHTML = "you have " + notation(game.greenpoints) + " green points and " + notation(game.greenpower.mul(game.redpoints.add(2).logBase(2)).round()) + " green power"
 	$("number2").innerHTML = "you have " + notation(game.redmoney) + " red money and " + notation(game.redpoints) + " red points (x" + notation(game.redpoints.add(2).logBase(2)) + " mult)"
 	if (game.greenpoints.gte(25)) $("redprestige").style.display = "inline"; 
 	else $("redprestige").style.display = "none";
