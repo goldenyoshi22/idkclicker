@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>idk clicker v1.11</title>
+    <title>idk clicker v1.2</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <script src="OmegaNum.min.js"></script>
@@ -17,8 +17,11 @@
 <button id="redprestige" class="rbtn" onclick="prestige()">prestige for 1 red currency</button>
 <br>
 <div id="redprestigearea">
-<div id="number2" class="rtxt">you have 0 red money and 0 red points (x1 mult)</div>
+<div id="number2" class="rtxt">you have 0 red money and 0 red power (x1 mult)</div>
 <img src="red1.png" style="cursor: pointer;" onclick="increment(3)">
+<img src="red2.png" id="red2" style="cursor: pointer;" onclick="increment(4)"> <div id="redcosts" class="rtxt">r1: cost 1 R$ | r2: cost 10 R$</div>
+<br>
 <button class="rbtn" onclick="maxred1()">max red 1</button>
+<button id="upg1btn" class="rbtn" onclick="upgrade()">gain 1 red power per second and unlock red 2 (20 R$)</button>
 </div>
 </body>
