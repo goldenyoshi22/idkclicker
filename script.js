@@ -35,4 +35,4 @@ function updateThings() {
 	$("redprestige").innerHTML = "prestige for " + calcPrestige(game.greenpoints) + " red currency"
 }
 
-checkThings()
+updateThings()
