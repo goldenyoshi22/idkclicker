@@ -8,7 +8,7 @@ let D = x => {
 var ON = OmegaNum;
 
 var game = {
-idkpoints: D(0);
+idkpoints: D(0)
 }
 
 function increment() {
