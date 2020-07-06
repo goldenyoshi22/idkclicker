@@ -18,7 +18,7 @@ prestiged: false
 function notation(num, dec = 2) {
   if (num.gte(1e6)) {
     let exponent = num.logBase(10).floor()
-    let mantissa = toFixed(num.div(OmegaNum.pow(10, exponent)), dec)
+    let mantissa = notation(num.div(OmegaNum.pow(10, exponent)), dec)
     
     return mantissa + "e" + exponent;
   }
