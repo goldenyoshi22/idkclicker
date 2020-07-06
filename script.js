@@ -30,8 +30,8 @@ return num.root(1.69).logBase(4).floor()
 
 function updateThings() {
 	$("number").innerHTML = "you have " + game.greenpoints + " idk points and " + game.greenclickpower + " click power"
-	if (game.greenpoints.gte(69)) $("redprestige").style.display = "inline"
-	else $("redprestige").style.display = "none"
+	if (game.greenpoints.gte(69)) $("redprestige").style.display = "inline"; $("green2").style.display = "inline";
+	else $("redprestige").style.display = "none"; $("green2").style.display = "none";
 	$("redprestige").innerHTML = "prestige for " + calcPrestige(game.greenpoints) + " red currency"
 }
 
