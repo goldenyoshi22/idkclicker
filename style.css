@@ -13,5 +13,7 @@ color:#FF0000;
 font-family: monospace;
 background-color:black;
 color:#FF0000;
-border-color: red;	
+border-color: red;
+outline: none;
+cursor: pointer;	
 }
