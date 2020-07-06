@@ -29,7 +29,7 @@ function notation(num, dec = 2) {
 
 function increment(n = 1) {
 	if (n == 1) { 
-	game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpoints.add(2).logBase(2)).round());
+	game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpoints.add(2).root(2)).round());
 	} else if (n == 2) {		
 	game.greenpower = game.greenpower.add(1)
 	} else if (n == 3) {		
@@ -41,7 +41,7 @@ function increment(n = 1) {
 }
 
 function calcPrestige(num) {
-return num.root(1.5).logBase(3.5).floor()	
+return num.root(2.56).sub(2).floor()	
 }
 
 function prestige() {
@@ -51,9 +51,17 @@ game.greenpower = D(1)
 game.prestiged = true
 updateThings()
 }
+
+function maxred1() {
+	if (game.redmoney.gte(1)) {
+	game.redpoints = game.redpoints.add(game.redmoney)
+    game.redmoney = ON(0)
+	}
+	updateThings()
+}	
 function updateThings() {
-	$("number").innerHTML = "you have " + notation(game.greenpoints) + " green points and " + notation(game.greenpower.mul(game.redpoints.add(2).logBase(2)).round()) + " green power"
-	$("number2").innerHTML = "you have " + notation(game.redmoney) + " red money and " + notation(game.redpoints) + " red points (x" + notation(game.redpoints.add(2).logBase(2)) + " mult)"
+	$("number").innerHTML = "you have " + notation(game.greenpoints) + " green points and " + notation(game.greenpower.mul(game.redpoints.add(2).root(2)).round()) + " green power"
+	$("number2").innerHTML = "you have " + notation(game.redmoney) + " red money and " + notation(game.redpoints) + " red points (x" + notation(game.redpoints.add(2).root(2)) + " mult)"
 	if (game.greenpoints.gte(25)) $("redprestige").style.display = "inline"; 
 	else $("redprestige").style.display = "none";
 if (game.prestiged == true) {$("green2").style.display = "inline"; $("redprestigearea").style.display = "inline";} 
