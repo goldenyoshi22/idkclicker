@@ -4,24 +4,34 @@
     <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>idk clicker v1.2</title>
+    <title>idk clicker v1.25</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
     <script src="OmegaNum.min.js"></script>
     <script src="saving.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>  
 <body>
-<div id="number">you have 0 green points and 1 green power</div>
+<div id="game">
+<button class="gbtn" onclick="tab = 'idk buttons'">idk buttons</button>
+<button class="wbtn" onclick="tab = 'settings'">settings</button>
+<div v-if="tab == 'idk buttons'">you have {{ notation(game.greenpoints, 2, game.notation) }} green points and {{ notation(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round(), 2, game.notation) }} green power
+<br>
 <img src="green1.png" style="cursor: pointer;" onclick="increment()">
-<img src="green2.png" id="green2" style="cursor: pointer;" onclick="increment(2)">
-<button id="redprestige" class="rbtn" onclick="prestige()">prestige for 1 red currency</button>
+<img src="green2.png" style="cursor: pointer;" onclick="increment(2)" v-if="game.upgrades[2] == true">
 <br>
-<div id="redprestigearea">
-<div id="number2" class="rtxt">you have 0 red money and 0 red power (x1 mult)</div>
+<button id="redprestige" class="rbtn" onclick="prestige()" v-if="game.greenpoints.gte(25)">prestige for {{ notation(calcPrestige(game.greenpoints), 2, game.notation) }} red money</button>
+<br>
+<div v-if="game.prestiged == true">
+<div class="rtxt">you have {{ notation(game.redmoney, 2, game.notation) }} red money and {{ notation(game.redpower, 2, game.notation) }} red power ({{ notation(game.redpower.add(2).root(game.redroot), 2, game.notation) }}x mult, {{notation(game.redroot, 2, game.notation)}} root)</div>
 <img src="red1.png" style="cursor: pointer;" onclick="increment(3)">
-<img src="red2.png" id="red2" style="cursor: pointer;" onclick="increment(4)"> <div id="redcosts" class="rtxt">r1: cost 1 R$ | r2: cost 10 R$</div>
+<img src="red2.png" style="cursor: pointer;" onclick="increment(4)" v-if="game.upgrades[0] == true"> <div class="rtxt">r1: cost 1 R$ | r2: {{ game.redroot.lte(1.25) ? "MAXED OUT BOOM BOOM" : notation(game.r2cost, 2, game.notation) + "R$"}} </div>
 <br>
-<button class="rbtn" onclick="maxred1()">max red 1</button>
-<button id="upg1btn" class="rbtn" onclick="upgrade()">gain 1 red power per second and unlock red 2 (20 R$)</button>
+<button class="rbtn" onclick="maxred1()">max red 1</button> <br>
+<button class="rbtn" onclick="upgrade(3)">unlock green 2 ({{ game.upgrades[2] ? "you already bought this you chicken" : 3 + "R$" }})</button>
+<br> <button class="rbtn" onclick="upgrade()" v-if="game.upgrades[2] == true">gain 1 red power per second and unlock red 2 ({{ game.upgrades[0] ? "you already bought this you chicken" : 20 + "R$" }})</button>
+<br> <button class="rbtn" onclick="upgrade(2)" v-if="game.upgrades[2] == true">make the red gain formula better ({{ game.upgrades[1] ? "you already bought this you chicken" : 100 + "R$" }})</button></div></div>
+
+<button class="wbtn" onclick="switchNotation()">notation: {{ notationnames[game.notation-1] }}</button>
 </div>
 </body>
