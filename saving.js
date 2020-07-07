@@ -34,18 +34,18 @@ function isDecimal(x) {
     } else {
         return false;
     }
-} // lol just use instanceof its much better
+}
 
 
 var savegame;
 
 function save() {
-  localStorage.setItem("idkclickersave", JSON.stringify(game));
+  localStorage.setItem("idkclickerv1.25save", JSON.stringify(game));
 }
 
 function load() {
-  if (localStorage.getItem("idkclickersave")) {
-    savegame = JSON.parse(localStorage.getItem("idkclickersave"));
+  if (localStorage.getItem("idkclickerv1.25save")) {
+    savegame = JSON.parse(localStorage.getItem("idkclickerv1.25save"));
     objectToDecimal(savegame);
     merge(game, savegame);
   }

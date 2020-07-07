@@ -119,7 +119,7 @@ function maxred1() {
 }	
 
 function upgrade(num = 1) {
-    switch (n) {
+    switch (num) {
     case 1:
 	if (game.upgrades[0] == false && game.redmoney.gte(20)) {
 setInterval(function(){game.redpower = game.redpower.add(0.25)}, 250);
