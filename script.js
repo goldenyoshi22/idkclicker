@@ -18,14 +18,15 @@ redroot: D(2),
 redroot2: D(2.56),
 r2cost: D(10),
 prestiged: false,
-upgrades: [false, false, false],
-notation: 1
+upgrades: [false, false, false, false],
+notation: 1,
+notationactivate: D(1e3),
+tab: 1
 }
-var tab = "idk buttons"
-const notationnames = ["scientific", "logarithm"]
+var e100 = Infinity //funy
+const notationnames = ["scientific", "logarithm", "real scientific", "cancer"]
 
-var defaultgame = { ...game }
-
+//having a default game doesnt work so...
 function getNewSave() {
 	game = {
 greenpoints: D(0),
@@ -37,7 +38,9 @@ redroot2: D(2.56),
 r2cost: D(10),
 prestiged: false,
 upgrades: [false, false, false],
-notation: 1
+notation: 1,
+notationactivate: D(1e3),
+tab: 1
 }
 location.reload(false)
 }
@@ -46,7 +49,6 @@ var app = new Vue({
   data: {
 	game: game,
 	calcPrestige: calcPrestige,
-	tab: tab,
 	notation: notation,
 	notationnames: notationnames
   }
@@ -57,25 +59,32 @@ function toFixed(num, dec = 2) {
 }
 //thank you yahtzee master
 function notation(num, r = 2, notationOverride = notation) {
-  switch (notationOverride ) {
-    case 1:
-      if (num.lt(1e3)) return num.times(OmegaNum.pow(10, r)).floor().div(OmegaNum.pow(10, r))
+  const e = num.logBase(10).floor()
+  const m = num.div(OmegaNum.pow(10, e)).times(OmegaNum.pow(10, r)).floor().div(OmegaNum.pow(10, r))
 
-      const e = num.logBase(10).floor()
-      const m = notation(num.div(OmegaNum.pow(10, e)), r, 1)
-      
+  if (num.eq(0)) return "0"
+  else switch (notationOverride ) {
+    case 1: //scientific
+      if (num.lt(game.notationactivate)) return num.times(OmegaNum.pow(10, r)).floor().div(OmegaNum.pow(10, r))
+     
       return `${m}e${e}`
       break
-    case 2:
-      if (num.lt(1000)) return notation(num, r, 1)
+    case 2: //logarithm
+      if (num.lt(game.notationactivate)) return notation(num, r, 1)
 
       return `e${toFixed(num.logBase(10))}`
       break
+    case 3: //real scientific
+      if (num.lt(game.notationactivate)) return notation(num, r, 1)
+      
+      return `${m} x 10<sup>${e}</sup>`
+      break
+	case 4: //cancer
+	return num.toJSON()
     default:
       return "thats not a notation, dummy"
   }
 }
-
 
 function increment(n = 1) {
 	switch (n) {
@@ -96,8 +105,9 @@ function increment(n = 1) {
 	game.redroot = game.redroot.div(1.05)
 	game.redmoney = game.redmoney.sub(game.r2cost)
 	game.r2cost = game.r2cost.pow(1.169).round()
-	break
-	}}}
+	}}
+	if (game.redroot.lt(1.25)) game.redroot = D(1.25)
+	break}
 }
 
 function calcPrestige(num) {
@@ -139,16 +149,28 @@ game.redmoney = game.redmoney.sub(20);
 	game.upgrades[2] = true
 	}
 	break
+	case 4:
+	if (game.upgrades[3] == false && game.redmoney.gte(1000)) {
+    game.redmoney = game.redmoney.sub(1000)
+setInterval(function(){game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
+game.upgrades[3] = true
+	}
 	}
 }
 
 load() //saving.js
-if (game.upgrades[0] == true) {
-setInterval(function(){game.redpower = game.redpower.add(0.25)}, 250);
-}
+if (game.upgrades[0] == true) setInterval(function(){game.redpower = game.redpower.add(0.25)}, 250);
+if (game.upgrades[3] == true) setInterval(function(){game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
 setInterval(save, 4200)
 
 function switchNotation() {
-	if (game.notation == 2) game.notation = 1 
+	if (game.notation == 4) game.notation = 1 
 	else game.notation += 1
+}
+
+function switchNotationActivate() {
+var yes = prompt('when would you like the notation to take effect? (0-1e100)')
+if (ON(yes).lt(0)) game.notationactivate = D(0)
+else if (ON(yes).gt(1e100)) game.notationactivate = D(1e100)
+else game.notationactivate = D(yes)
 }

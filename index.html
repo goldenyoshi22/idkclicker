@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>idk clicker v1.25</title>
+    <title>idk clicker v1.3</title>
     <link rel="stylesheet" href="style.css">
+	<link rel="icon" href="green1.png">
     <script src="script.js" defer></script>
     <script src="OmegaNum.min.js"></script>
     <script src="saving.js"></script>
@@ -13,25 +14,31 @@
   </head>  
 <body>
 <div id="game">
-<button class="gbtn" onclick="tab = 'idk buttons'">idk buttons</button>
-<button class="wbtn" onclick="tab = 'settings'">settings</button>
-<div v-if="tab == 'idk buttons'">you have {{ notation(game.greenpoints, 2, game.notation) }} green points and {{ notation(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round(), 2, game.notation) }} green power
+<button class="gbtn" onclick="game.tab = 1">idk buttons</button>
+<button class="wbtn" onclick="game.tab = 2">settings</button>
+<div v-if="game.tab == 1">you have <span v-html="notation(game.greenpoints, 2, game.notation)"></span> green points and <span v-html="notation(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round(), 2, game.notation)"></span> green power
 <br>
-<img src="green1.png" style="cursor: pointer;" onclick="increment()">
-<img src="green2.png" style="cursor: pointer;" onclick="increment(2)" v-if="game.upgrades[2] == true">
+<img src="green1.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;" onclick="increment()">
+<img src="green2.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;" onclick="increment(2)" v-if="game.upgrades[2] == true">
 <br>
-<button id="redprestige" class="rbtn" onclick="prestige()" v-if="game.greenpoints.gte(25)">prestige for {{ notation(calcPrestige(game.greenpoints), 2, game.notation) }} red money</button>
+<button id="redprestige" class="rbtn" onclick="prestige()" v-if="game.greenpoints.gte(25)">prestige for <span v-html="notation(calcPrestige(game.greenpoints), 2, game.notation)"></span> red money</button>
 <br>
 <div v-if="game.prestiged == true">
-<div class="rtxt">you have {{ notation(game.redmoney, 2, game.notation) }} red money and {{ notation(game.redpower, 2, game.notation) }} red power ({{ notation(game.redpower.add(2).root(game.redroot), 2, game.notation) }}x mult, {{notation(game.redroot, 2, game.notation)}} root)</div>
-<img src="red1.png" style="cursor: pointer;" onclick="increment(3)">
-<img src="red2.png" style="cursor: pointer;" onclick="increment(4)" v-if="game.upgrades[0] == true"> <div class="rtxt">r1: cost 1 R$ | r2: {{ game.redroot.lte(1.25) ? "MAXED OUT BOOM BOOM" : notation(game.r2cost, 2, game.notation) + " R$"}} </div>
+<div class="rtxt">you have <span v-html="notation(game.redmoney, 2, game.notation)"></span> red money and <span v-html="notation(game.redpower, 2, game.notation)"></span> red power (<span v-html="notation(game.redpower.add(2).root(game.redroot), 2, game.notation) + 'x mult, ' + notation(game.redroot, 2, game.notation) + ' root'"></span>)</div>
+<img src="red1.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;" onclick="increment(3)">
+<img src="red2.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;" onclick="increment(4)" v-if="game.upgrades[0] == true"> <div class="rtxt">r1: cost 1 R$ | r2: <span v-html="game.redroot.lte(1.25) ? 'MAXED OUT BOOM BOOM' : notation(game.r2cost, 2, game.notation) + ' R$'"></span></div>
 <br>
 <button class="rbtn" onclick="maxred1()">max red 1</button> <br>
 <button class="rbtn" onclick="upgrade(3)">unlock green 2 ({{ game.upgrades[2] ? "you already bought this you chicken" : 3 + " R$" }})</button>
 <br> <button class="rbtn" onclick="upgrade()" v-if="game.upgrades[2] == true">gain 1 red power per second and unlock red 2 ({{ game.upgrades[0] ? "you already bought this you chicken" : 20 + " R$" }})</button>
-<br> <button class="rbtn" onclick="upgrade(2)" v-if="game.upgrades[2] == true">make the red gain formula better ({{ game.upgrades[1] ? "you already bought this you chicken" : 100 + " R$" }})</button></div></div>
-
+<br> <button class="rbtn" onclick="upgrade(2)" v-if="game.upgrades[2] == true">make the red gain formula better ({{ game.upgrades[1] ? "you already bought this you chicken" : 100 + " R$" }})</button>
+<br> <button class="rbtn" onclick="upgrade(4)" v-if="game.upgrades[1] == true">gain green points at the rate of 10% of your green power per second (<span v-html="game.upgrades[3] ? 'you already bought this you chicken' : notation(ON(1000), 2, game.notation) + ' R$'"></span>)</button></div></div>
+<div v-if="game.tab == 2"><br>
 <button class="wbtn" onclick="switchNotation()">notation: {{ notationnames[game.notation-1] }}</button>
+<button class="wbtn" onclick="switchNotationActivate()">notation takes effect at <span v-html="notation(game.notationactivate, 2, game.notation)"></span></button>
+<br><br> <button class="rbtn" onclick="wipeSave()">RESET DA GAME</button>
+<br><br>
+<div class="wtxt">be aware that cancer notation does not get effected with the notation activate number <br> this uses <a href="https://vuejs.org">Vue</a> which i do not take credit for at all
+</div>
 </div>
 </body>

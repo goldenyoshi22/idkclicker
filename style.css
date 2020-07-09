@@ -1,6 +1,7 @@
 
 body {
 font-family: monospace;
+font-size: 15px;
 background-color:black;
 color:#00FF00;
 }
@@ -13,9 +14,22 @@ color:#FF0000;
 font-family: monospace;
 background-color:#800000;
 color:#FF0000;
-border-color: red;
+border-color: #FF0000;
 outline: none;
 cursor: pointer;	
+font-size: 15px;
+transition-duration: 0.169s;
+}
+
+.rbtn:hover {
+color:#FF4040;
+border-color:#FF4040;
+}
+
+.rbtn:active {
+color:#FF0000;
+border-color:#FF0000;
+background-color:#400000
 }
 
 .gbtn {
@@ -25,6 +39,19 @@ color:#00FF00;
 border-color: #00FF00;
 outline: none;
 cursor: pointer;
+font-size: 15px;
+transition-duration: 0.169s;
+}
+
+.gbtn:hover {
+color:#80FF80;
+border-color:#80FF80;
+}
+
+.gbtn:active {
+color:#00FF00;
+border-color:#00FF00;
+background-color:#004000
 }
 
 .wbtn {
@@ -34,4 +61,31 @@ color:#FFFFFF;
 border-color: #FFFFFF;
 outline: none;
 cursor: pointer;
+font-size: 15px;
+transition-duration: 0.169s;
+}
+
+
+.wbtn:hover {
+filter: brightness(1.25);
+}
+
+.wbtn:active {
+filter: brightness(0.75);
+}
+
+.brightnessthing {
+transition-duration:0.169s;
+}
+
+.brightnessthing:hover {
+filter: brightness(1.25);
+}
+
+.brightnessthing:active {
+filter: brightness(0.75);
+}
+
+.wtxt {
+color:#FFFFFF;
 }
