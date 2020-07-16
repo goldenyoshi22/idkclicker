@@ -43,6 +43,7 @@ const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne
 function getNewSave() {
 	game = {
 greenpoints: D(0),
+highestgp: D(0),
 greenpower: D(1),
 redmoney: D(0),
 redpower: D(0),
