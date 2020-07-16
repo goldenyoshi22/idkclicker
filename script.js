@@ -8,9 +8,22 @@ let D = x => {
 
 var ON = OmegaNum;
 
+console.log('pls no hac me :(')
+
+//mousetrap stuff
+Mousetrap.bind('1', () => {increment(1)});
+Mousetrap.bind('2', () => {if (game.prestiged == true && game.upgrades[2] == true) increment(2)});
+Mousetrap.bind('3', () => {if (game.prestiged == true) increment(3)});
+Mousetrap.bind('4', () => {if (game.prestiged == true && game.upgrades[0] == true) increment(4)});
+Mousetrap.bind('r', () => {if (game.greenpoints.gte(25)) prestige()});
+Mousetrap.bind('right', () => {if (game.tab == 3) {game.tab = 1} else {game.tab += 1}})
+Mousetrap.bind('left', () => {if (game.tab == 1) {game.tab = 3} else {game.tab -= 1}})
+Mousetrap.bind('up', () => {if (game.tab == 3) {game.tab = 1} else {game.tab += 1}})
+Mousetrap.bind('down', () => {if (game.tab == 1) {game.tab = 3} else {game.tab -= 1}})
 
 var game = {
 greenpoints: D(0),
+highestgp: D(0),
 greenpower: D(1),
 redmoney: D(0),
 redpower: D(0),
@@ -18,13 +31,13 @@ redroot: D(2),
 redroot2: D(2.56),
 r2cost: D(10),
 prestiged: false,
-upgrades: [false, false, false, false],
+upgrades: [false, false, false, false, false],
 notation: 1,
 notationactivate: D(1e3),
-tab: 1
+tab: 1,
 }
 var e100 = Infinity //funy
-const notationnames = ["scientific", "logarithm", "real scientific", "cancer"]
+const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne)", "tetration (ne)", "infinity (ne)"]
 
 //having a default game doesnt work so...
 function getNewSave() {
@@ -40,7 +53,7 @@ prestiged: false,
 upgrades: [false, false, false],
 notation: 1,
 notationactivate: D(1e3),
-tab: 1
+tab: 1,
 }
 location.reload(false)
 }
@@ -50,7 +63,7 @@ var app = new Vue({
 	game: game,
 	calcPrestige: calcPrestige,
 	notation: notation,
-	notationnames: notationnames
+	notationnames: notationnames,
   }
 })
 
@@ -81,6 +94,13 @@ function notation(num, r = 2, notationOverride = notation) {
       break
 	case 4: //cancer
 	return num.toJSON()
+	break
+	case 5: //tetration
+	return `2^^${toFixed(num.slog(2), 3)}`
+	break
+	case 6: //infinity
+	return `${toFixed(num.logBase(ON.pow(2, 1024)), 3)}∞`
+	break
     default:
       return "thats not a notation, dummy"
   }
@@ -132,7 +152,7 @@ function upgrade(num = 1) {
     switch (num) {
     case 1:
 	if (game.upgrades[0] == false && game.redmoney.gte(20)) {
-setInterval(function(){game.redpower = game.redpower.add(0.25)}, 250);
+setInterval(() => {game.redpower = game.redpower.add(0.25)}, 250);
 game.redmoney = game.redmoney.sub(20);
 	game.upgrades[0] = true}
 	break
@@ -152,25 +172,36 @@ game.redmoney = game.redmoney.sub(20);
 	case 4:
 	if (game.upgrades[3] == false && game.redmoney.gte(1000)) {
     game.redmoney = game.redmoney.sub(1000)
-setInterval(function(){game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
+setInterval(() => {game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
 game.upgrades[3] = true
 	}
+	break	
+	case 5:
+	if (game.upgrades[4] == false && game.redmoney.gte(5000)) {
+    game.redmoney = game.redmoney.sub(5000)
+setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(1000))}, 100);
+game.upgrades[4] = true
+	}
+	break
 	}
 }
 
 load() //saving.js
-if (game.upgrades[0] == true) setInterval(function(){game.redpower = game.redpower.add(0.25)}, 250);
-if (game.upgrades[3] == true) setInterval(function(){game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
+if (game.upgrades[0] == true) setInterval(() => {game.redpower = game.redpower.add(0.25)}, 250);
+if (game.upgrades[3] == true) setInterval(() => {game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
+if (game.upgrades[4] == true) setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(1000))}, 100);
 setInterval(save, 4200)
 
 function switchNotation() {
-	if (game.notation == 4) game.notation = 1 
+	if (game.notation == 6) game.notation = 1 
 	else game.notation += 1
 }
 
 function switchNotationActivate() {
-var yes = prompt('when would you like the notation to take effect? (0-1e100)')
+var yes = prompt('when would you like the notation to take effect? (0-1.7976e308)')
 if (ON(yes).lt(0)) game.notationactivate = D(0)
-else if (ON(yes).gt(1e100)) game.notationactivate = D(1e100)
+else if (ON(yes).gt(ON.pow(2, 1024))) game.notationactivate = ON.pow(2, 1024)
 else game.notationactivate = D(yes)
 }
+
+setInterval(function(){if (game.greenpoints.gt(game.highestgp)) game.highestgp = game.greenpoints}, 100);

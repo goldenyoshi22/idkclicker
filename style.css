@@ -89,3 +89,40 @@ filter: brightness(0.75);
 .wtxt {
 color:#FFFFFF;
 }
+
+.btxt {
+color:#0000FF;
+text-shadow: 0 0 10px #0000FF;
+}
+
+
+.bbtn {
+font-family: monospace;
+background-color:#000080;
+color:#0000FF;
+border-color: #0000FF;
+outline: none;
+cursor: pointer;	
+font-size: 15px;
+transition-duration: 0.169s;
+text-shadow: 0 0 10px #0000FF;
+box-shadow: 0 0 3px #000080;
+}
+
+.bbtn:hover {
+color:#000080;
+border-color:#0000FF;
+background-color:#0000FF;
+text-shadow: 0 0 10px #000080;
+box-shadow: 0 0 5px #000080;
+border-style:solid;
+}
+
+.bbtn:active {
+color:#0000FF;
+border-color:#0000FF;
+background-color:#000040;
+text-shadow: 0 0 10px #0000FF;
+box-shadow: 0 0 10px #0000FF;
+border-style:inset;
+}
