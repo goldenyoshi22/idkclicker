@@ -117,7 +117,7 @@ function notation(num, r = 2, notationOverride = notation) {
 		else if(num.lt(1000)) return toFixed(num,3,true);
 		else if(num.lt("1e" + (abb.length * 3)))
 		{
-			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3) ),3,true) + abb[e.div(3).floor()]
+			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3),3,true) + abb[e.div(3).floor()]
 		}
 		else if(num.lt("1e1000000")
 		{
