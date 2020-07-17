@@ -68,8 +68,17 @@ var app = new Vue({
   }
 })
 
-function toFixed(num, dec = 2) {
-	return OmegaNum.round(num.times(OmegaNum.pow(10, dec))).div(OmegaNum.pow(10, dec))
+function toFixed(num, dec = 2,sf = false) 
+{
+	if(sf)
+	{
+		var dp = OmegaNum.pow(10, OmegaNum.floor(OmegaNum.log10(num)).sub(dec - 1).mul(-1))
+		return OmegaNum.round(num.times(OmegaNum.pow(10, dp))).div(OmegaNum.pow(10, dp))
+	}
+	else
+	{
+		return OmegaNum.round(num.times(OmegaNum.pow(10, dec))).div(OmegaNum.pow(10, dec))
+	}
 }
 //thank you yahtzee master
 function notation(num, r = 2, notationOverride = notation) {
@@ -102,6 +111,8 @@ function notation(num, r = 2, notationOverride = notation) {
 	case 6: //infinity
 	return `${toFixed(num.logBase(ON.pow(2, 1024)), 3)}∞`
 	break
+	  case 7: //yorenis notaion
+		  
     default:
       return "thats not a notation, dummy"
   }
