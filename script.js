@@ -125,8 +125,9 @@ function notation(num, r = 2, notationOverride = notation) {
 		}
 		else if(num.lt("eeee1000000")
 		{
-			
+			return "a"
 		}
+		else return "a"
     default:
       return "thats not a notation, dummy"
   }
