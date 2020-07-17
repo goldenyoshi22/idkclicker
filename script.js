@@ -113,15 +113,15 @@ function notation(num, r = 2, notationOverride = notation) {
 	break
 	  case 7: //yorenis notaion
 		var abb = ["","K","M","B","T","q","Q","s","S","O","N","d","U","D"]
-		if(num.lt(0.1)) return toFixed(num,3,false)
-		else if(num.lt(1000)) return toFixed(num,3,true);
+		if(num.lt(0.1)) return toFixed(num,3,false).toNumber().toString();
+		else if(num.lt(1000)) return toFixed(num,3,true).toNumber().toString();
 		else if(num.lt("1e" + (abb.length * 3)))
 		{
 			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3)))),3,true) + abb[e.div(3).floor()]
 		}
 		else if(num.lt("1e1000000"))
 		{
-			return toFixed(m,2) + "e" + e.toNumber().toString.replace(/(\d+)(\d{3})/, '$1'+','+'$2')
+			return toFixed(m,2) + "e" + e.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
 		}
 		else if(num.lt("eeee1000000"))
 		{
