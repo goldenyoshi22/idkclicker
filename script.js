@@ -72,7 +72,7 @@ function toFixed(num, dec = 2,sf = false)
 {
 	if(sf)
 	{
-		var dp = OmegaNum.pow(10, OmegaNum.floor(OmegaNum.log10(num)).sub(dec - 1).mul(-1))
+		var dp = (Math.floor(OmegaNum.log10(num).toNumber()) - (dec - 1)) * -1 ;
 		return OmegaNum.round(num.times(OmegaNum.pow(10, dp))).div(OmegaNum.pow(10, dp))
 	}
 	else
@@ -112,7 +112,21 @@ function notation(num, r = 2, notationOverride = notation) {
 	return `${toFixed(num.logBase(ON.pow(2, 1024)), 3)}∞`
 	break
 	  case 7: //yorenis notaion
-		  
+		var abb = ["","K","M","B","T","q","Q","s","S","O","N","d","U","D"]
+		if(num.lt(0.1)) return toFixed(num,3,false)
+		else if(num.lt(1000)) return toFixed(num,3,true);
+		else if(num.lt("1e" + (abb.length * 3)))
+		{
+			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3) ),3,true) + abb[e.div(3).floor()]
+		}
+		else if(num.lt("1e1000000")
+		{
+			return toFixed(m,2) + "e" + e.toNumber().toString.replace(/(\d+)(\d{3})/, '$1'+','+'$2')
+		}
+		else if(num.lt("eeee1000000")
+		{
+			
+		}
     default:
       return "thats not a notation, dummy"
   }
