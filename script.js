@@ -119,11 +119,11 @@ function notation(num, r = 2, notationOverride = notation) {
 		{
 			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3)))),3,true) + abb[e.div(3).floor()]
 		}
-		else if(num.lt("1e1000000")
+		else if(num.lt("1e1000000"))
 		{
 			return toFixed(m,2) + "e" + e.toNumber().toString.replace(/(\d+)(\d{3})/, '$1'+','+'$2')
 		}
-		else if(num.lt("eeee1000000")
+		else if(num.lt("eeee1000000"))
 		{
 			return "a"
 		}
