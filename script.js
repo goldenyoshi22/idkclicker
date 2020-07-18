@@ -26,12 +26,13 @@ greenpoints: D(0),
 highestgp: D(0),
 greenpower: D(1),
 redmoney: D(0),
+highestrm: D(0),
 redpower: D(0),
 redroot: D(2),
 redroot2: D(2.56),
 r2cost: D(10),
 prestiged: false,
-upgrades: [false, false, false, false, false],
+upgrades: [false, false, false, false, false, false, false],
 notation: 1,
 notationactivate: D(1e3),
 tab: 1,
@@ -39,25 +40,6 @@ tab: 1,
 var e100 = Infinity //funy
 const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne)", "tetration (ne)", "infinity (ne)"]
 
-//having a default game doesnt work so...
-function getNewSave() {
-	game = {
-greenpoints: D(0),
-highestgp: D(0),
-greenpower: D(1),
-redmoney: D(0),
-redpower: D(0),
-redroot: D(2),
-redroot2: D(2.56),
-r2cost: D(10),
-prestiged: false,
-upgrades: [false, false, false, false, false],
-notation: 1,
-notationactivate: D(1e3),
-tab: 1,
-}
-location.reload(false)
-}
 var app = new Vue({
   el: '#game',
   data: {
@@ -65,6 +47,7 @@ var app = new Vue({
 	calcPrestige: calcPrestige,
 	notation: notation,
 	notationnames: notationnames,
+	toFixed: toFixed,
   }
 })
 
@@ -132,7 +115,8 @@ function increment(n = 1) {
 }
 
 function calcPrestige(num) {
-return num.root(game.redroot2).sub(2).floor()	
+if (game.upgrades[5] == true) return num.root(game.redroot2).sub(2).mul(game.greenpower.add(42).logBase(42)).floor()
+else return num.root(game.redroot2).sub(2).floor()	
 }
 
 function prestige() {
@@ -142,10 +126,15 @@ game.greenpower = D(1)
 game.prestiged = true
 }
 
-function maxred1() {
-	if (game.redmoney.gte(1)) {
+function maxred1(m = 1) {
+	if (m == 1) {
+		if (game.redmoney.gte(1)) {
 	game.redpower = game.redpower.add(game.redmoney)
     game.redmoney = ON(0)
+	}
+	} else {
+	game.redpower = game.redpower.add(game.redmoney.div(2))
+    game.redmoney = game.redmoney.sub(game.redmoney.div(2))
 	}
 }	
 
@@ -180,17 +169,32 @@ game.upgrades[3] = true
 	case 5:
 	if (game.upgrades[4] == false && game.redmoney.gte(5000)) {
     game.redmoney = game.redmoney.sub(5000)
-setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(1000))}, 100);
+setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(ON(1000).mul(game.redpower.logBase(5))))}, 100);
 game.upgrades[4] = true
+	}
+	break
+	case 6:
+	if (game.upgrades[5] == false && game.redmoney.gte(10000)) {
+	game.redmoney = game.redmoney.sub(10000)
+	game.upgrades[5] = true
+	}
+	break
+	case 7:
+	if (game.upgrades[6] == false && game.redmoney.gte(25000)) {
+	game.redmoney = game.redmoney.sub(25000)
+	game.upgrades[6] = true
+	setInterval(() => {game.redmoney = game.redmoney.add(calcPrestige(game.greenpoints.add(25)).div(200))}, 100)
 	}
 	break
 	}
 }
 
 load() //saving.js
+//checks for upgrades 2, 4, 5, and 7 (the array is kinda confusing, [2] is upg 1, [0] is upg 2, [1] is upg 3, the rest are normal)
 if (game.upgrades[0] == true) setInterval(() => {game.redpower = game.redpower.add(0.25)}, 250);
 if (game.upgrades[3] == true) setInterval(() => {game.greenpoints = game.greenpoints.add(game.greenpower.mul(game.redpower.add(2).root(game.redroot)).round().div(100))}, 100);
-if (game.upgrades[4] == true) setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(1000))}, 100);
+if (game.upgrades[4] == true) setInterval(() => {game.redpower = game.redpower.add(game.redpower.div(ON(1000).mul(game.redpower.logBase(5))))}, 100);
+if (game.upgrades[6] == true) setInterval(() => {game.redmoney = game.redmoney.add(calcPrestige(game.greenpoints.add(25)).div(200))}, 100)
 setInterval(save, 4200)
 
 function switchNotation() {
@@ -205,4 +209,6 @@ else if (ON(yes).gt(ON.pow(2, 1024))) game.notationactivate = ON.pow(2, 1024)
 else game.notationactivate = D(yes)
 }
 
-setInterval(function(){if (game.greenpoints.gt(game.highestgp)) game.highestgp = game.greenpoints}, 100);
+//stats
+setInterval(() => {if (game.greenpoints.gt(game.highestgp)) game.highestgp = game.greenpoints}, 100);
+setInterval(() => {if (game.redmoney.gt(game.highestrm)) game.highestrm = game.redmoney}, 100);
