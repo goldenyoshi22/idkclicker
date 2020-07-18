@@ -115,19 +115,24 @@ function notation(num, r = 2, notationOverride = notation) {
 		var abb = ["","K","M","B","T","q","Q","s","S","O","N","d","U","D"]
 		if(num.lt(0.1)) return toFixed(num,3,false).toNumber().toString();
 		else if(num.lt(1000)) return toFixed(num,3,true).toNumber().toString();
-		else if(num.lt("1e" + (abb.length * 3)))
-		{
-			return toFixed(m.times( OmegaNum.pow(10,(e.mod(3)))),3,true) + abb[e.div(3).floor()]
-		}
-		else if(num.lt("1e1000000"))
-		{
-			return toFixed(m,2) + "e" + e.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
-		}
+		else if(num.lt("1e" + (abb.length * 3))) return toFixed(m.times( OmegaNum.pow(10,(e.mod(3)))),3,true) + abb[e.div(3).floor()]
+		else if(num.lt("1e1000000")) return toFixed(m,2) + "e" + e.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
 		else if(num.lt("eeee1000000"))
 		{
-			return "a"
+			var es = OmegaNum.slog(num).toNumber() - 1
+			if(es % 1 >= 0.778151250383644)) es = Math.ceil(es)
+			else es = Math.floor(es)
+			var mt = num
+			for(var a = 0 ; a < es ; a++)
+			{
+			    mt = mt.log10(mt)
+			}
+			var emt = num.logBase(10).floor()
+			var mmt = mt.div(OmegaNum.pow(10, emt)).times(OmegaNum.pow(10, 5)).floor().div(OmegaNum.pow(10, 5))
+			if(mt.lt("1e" + (abb.length * 3))) return "e".repeat(es) + toFixed(mmt.times(OmegaNum.pow(10,(emt.mod(3)))),3,false) + abb[emt.div(3).floor()]
+			else return "e".repeat(es) + toFixed(mmt,3) + "e" + emt.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
 		}
-		else return "a"
+		else return "more needs to be added to this notation"
     default:
       return "thats not a notation, dummy"
   }
