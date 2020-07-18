@@ -120,7 +120,7 @@ function notation(num, r = 2, notationOverride = notation) {
 		else if(num.lt("eeee1000000"))
 		{
 			var es = OmegaNum.slog(num).toNumber() - 1
-			if(es % 1 >= 0.778151250383644)) es = Math.ceil(es)
+			if(es % 1 >= 0.778151250383644) es = Math.ceil(es)
 			else es = Math.floor(es)
 			var mt = num
 			for(var a = 0 ; a < es ; a++)
