@@ -37,7 +37,7 @@ notationactivate: D(1e3),
 tab: 1,
 }
 var e100 = Infinity //funy
-const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne)", "tetration (ne)", "infinity (ne)"]
+const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne)", "tetration (ne)", "infinity (ne)","Yorenis notation"]
 
 //having a default game doesnt work so...
 function getNewSave() {
