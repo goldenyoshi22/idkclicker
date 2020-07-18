@@ -117,17 +117,15 @@ function notation(num, r = 2, notationOverride = notation) {
 		else if(num.lt(1000)) return toFixed(num,3,true).toNumber().toString();
 		else if(num.lt("1e" + (abb.length * 3))) return toFixed(m.times( OmegaNum.pow(10,(e.mod(3)))),3,true) + abb[e.div(3).floor()]
 		else if(num.lt("1e1000000")) return toFixed(m,2) + "e" + e.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
-		else if(num.lt("eeee1000000"))
+		else if(num.lt("eeeee1000000"))
 		{
-			var es = OmegaNum.slog(num).toNumber() - 1
-			if(es % 1 >= 0.778151250383644) es = Math.ceil(es)
-			else es = Math.floor(es)
+			var es = Math.floor(OmegaNum.slog(num).toNumber() - 1.778151250383644);
 			var mt = num
 			for(var a = 0 ; a < es ; a++)
 			{
 			    mt = mt.log10(mt)
-			}
-			var emt = num.logBase(10).floor()
+			};console.log(mt);
+			var emt = mt.logBase(10).floor()
 			var mmt = mt.div(OmegaNum.pow(10, emt)).times(OmegaNum.pow(10, 5)).floor().div(OmegaNum.pow(10, 5))
 			if(mt.lt("1e" + (abb.length * 3))) return "e".repeat(es) + toFixed(mmt.times(OmegaNum.pow(10,(emt.mod(3)))),3,false) + abb[emt.div(3).floor()]
 			else return "e".repeat(es) + toFixed(mmt,3) + "e" + emt.toNumber().toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2')
@@ -225,7 +223,7 @@ if (game.upgrades[4] == true) setInterval(() => {game.redpower = game.redpower.a
 setInterval(save, 4200)
 
 function switchNotation() {
-	if (game.notation == 6) game.notation = 1 
+	if (game.notation == 7) game.notation = 1 
 	else game.notation += 1
 }
 
