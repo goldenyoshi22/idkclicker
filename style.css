@@ -1,7 +1,7 @@
 
 body {
 font-family: monospace;
-font-size: 15px;
+font-size: 18.75px;
 background-color:black;
 color:#00FF00;
 }
@@ -17,7 +17,7 @@ color:#FF0000;
 border-color: #FF0000;
 outline: none;
 cursor: pointer;	
-font-size: 15px;
+font-size: 18.75px;
 transition-duration: 0.169s;
 }
 
@@ -39,7 +39,7 @@ color:#00FF00;
 border-color: #00FF00;
 outline: none;
 cursor: pointer;
-font-size: 15px;
+font-size: 18.75px;
 transition-duration: 0.169s;
 }
 
@@ -61,7 +61,7 @@ color:#FFFFFF;
 border-color: #FFFFFF;
 outline: none;
 cursor: pointer;
-font-size: 15px;
+font-size: 18.75px;
 transition-duration: 0.169s;
 }
 
@@ -103,7 +103,7 @@ color:#0000FF;
 border-color: #0000FF;
 outline: none;
 cursor: pointer;	
-font-size: 15px;
+font-size: 18.75px;
 transition-duration: 0.169s;
 text-shadow: 0 0 10px #0000FF;
 box-shadow: 0 0 3px #000080;
@@ -125,4 +125,84 @@ background-color:#000040;
 text-shadow: 0 0 10px #0000FF;
 box-shadow: 0 0 10px #0000FF;
 border-style:inset;
+}
+
+.mpbtn {
+font-family: monospace;
+color:white;
+border-color:#00FF00;
+outline: none;
+font-size:18.75px;
+animation-name: multipower;
+animation-duration: 2s;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+transition-duration:0.169s;
+cursor:pointer;
+}
+
+.mpbtn:hover {
+text-shadow: 0 0 10px #FFFFFF;
+}
+
+.mpbtn:active {
+filter: brightness(0.75);
+}
+
+.mptxt {
+animation-name: mptxtani;
+animation-duration: 2s;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+}
+
+.mpupgyes {
+font-family: monospace;
+background-color:black;
+color:white;
+border-color:#00FF00;
+outline: none;
+font-size:18.75px;
+animation-name: mptxtani;
+animation-duration: 2s;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+transition-duration:0.169s;
+cursor:pointer;
+}
+
+.mpupgyes:active {
+filter: brightness(0.75);
+}
+
+@keyframes multipower {
+  0%   {background-color: #00FF00; border-color: #00FF00;}
+  100%  {background-color: #FF0000; border-color: #FF0000;}
+}
+
+
+@keyframes mptxtani {
+  0%   {color: #00FF00; border-color: #00FF00; text-shadow: 0 0 10px #00FF00;}
+  100%  {color: #FF0000; border-color: #FF0000; text-shadow: 0 0 10px #FF0000;}
+}
+
+#newsTicker {
+  border: 2px solid #00FF00;
+  border-radius: 5px;
+  height: 20px;
+  padding: 5px;
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.idktable{
+	width:100%
+}
+
+.idktable td {
+	min-width: 33%;
+	width: 33%;
+	max-width: 33%;
+	text-align: center;
 }
