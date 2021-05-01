@@ -40,12 +40,12 @@ function isDecimal(x) {
 var savegame;
 
 function save() {
-  localStorage.setItem("idkclickerv1.375save", JSON.stringify(game));
+  localStorage.setItem("idkclickerv1.4save", JSON.stringify(game));
 }
 
 function load() {
-  if (localStorage.getItem("idkclickerv1.375save")) {
-    savegame = JSON.parse(localStorage.getItem("idkclickerv1.375save"));
+  if (localStorage.getItem("idkclickerv1.4save")) {
+    savegame = JSON.parse(localStorage.getItem("idkclickerv1.4save"));
     objectToDecimal(savegame);
     merge(game, savegame);
   }
