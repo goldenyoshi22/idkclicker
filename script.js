@@ -236,7 +236,7 @@ game.upgrades[4] = true
 	}
 	break
 	case 7:
-	if (game.upgrades[6] == false && game.redmoney.gte(22222)) {
+	if (game.upgrades[6] == false && game.redmoney.gte(17777)) {
 	game.redmoney = game.redmoney.sub(17777)
 	game.upgrades[6] = true
 	setInterval(() => {game.redmoney = game.redmoney.add(calcPrestige(game.greenpoints.add(25)).div(200))}, 100)
