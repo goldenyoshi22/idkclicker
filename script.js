@@ -66,17 +66,19 @@ var e100 = Infinity //funy
 const robuxtrolls = ["hehe i tricked you >:)", "i would rickroll you but that would most likely make me gay", "jk y'o'rre'is' dum'b", "do you are have stupid", "you just summoned thanos now he will snap you", "r", "stupid", "im running out of things to put here", "CONGRATS!!!!!!!!!!! YOU WON INFINITY ROBUX"]
 const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne, nde)", "tetration (ne, nde)", "infinity (ne)", "standard (nde, notation activate is min of 1,000)"]
 
-var app = new Vue({
-  el: '#game',
-  data: {
+Vue.createApp({
+  data() {
+	  return {
 	game: game,
 	calcPrestige: calcPrestige,
 	notation: notation,
 	notationnames: notationnames,
 	toFixed: toFixed,
 	checkMPU: checkMPU,
+	calcBlP,
+	  }
   }
-})
+}).mount("#game")
 
 //window.onload = function() {if (game.usemixedstandard == true) document.getElementById("usemixednotation").checked = true};
 //setInterval(() => {if (game.tab == 2) {game.usemixedstandard = document.getElementById("usemixednotation").checked}}, 100)
@@ -159,6 +161,10 @@ function increment(n = 1) {
 function calcPrestige(num) {
 if (game.upgrades[5] == true) return num.root(game.redroot2).sub(2).mul(calcGP().add(42).logBase(42)).floor()
 else return num.root(game.redroot2).sub(2).floor()	
+}
+
+function calcBlP(num) {
+return num.logBase(10).minus(31.5).times(num.root(100)).round()
 }
 
 function calcGP(num = game.greenpower) {

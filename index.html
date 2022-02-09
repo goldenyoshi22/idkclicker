@@ -35,7 +35,8 @@
 <img src="img/green2.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;user-select: none;" onclick="increment(2)" v-if="game.upgrades[2] == true">
 <img src="img/green3.png" class="brightnessthing" style="cursor: pointer;width:124px;height:124px;user-select: none;" onclick="increment(5)" v-if="game.upgrades[7] == true">
 <br>
-<button class="rbtn" onclick="prestige()" v-if="game.greenpoints.gte(25)">prestige for <span v-html="notation(calcPrestige(game.greenpoints), 2, game.notation)"></span> red money</button>
+<button class="rbtn" onclick="prestige()" v-if="game.greenpoints.gte(25)">prestige for <span v-html="notation(calcPrestige(game.greenpoints), 2, game.notation)"></span> red money</button><br>
+<button class="bbtn" onclick="" v-if="game.greenpoints.gte(1e32)">prestige for <span v-html="notation(calcBlP(game.greenpoints), 2, game.notation)"></span> blue money (coming when)</button>
 <br>
 <div v-if="game.prestiged == true">
 <div class="rtxt">you have <span v-html="notation(game.redmoney, 2, game.notation)"></span> red money and <span v-html="notation(game.redpower, 2, game.notation)"></span> red power (<span v-html="notation(game.redpower.add(2).root(game.redroot), 2, game.notation) + 'x mult, ' + 'formula is red power<sup>' + notation(ON.div(1, game.redroot), 2, game.notation) + '</sup>'"></span>)</div>
