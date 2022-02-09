@@ -66,9 +66,9 @@ var e100 = Infinity //funy
 const robuxtrolls = ["hehe i tricked you >:)", "i would rickroll you but that would most likely make me gay", "jk y'o'rre'is' dum'b", "do you are have stupid", "you just summoned thanos now he will snap you", "r", "stupid", "im running out of things to put here", "CONGRATS!!!!!!!!!!! YOU WON INFINITY ROBUX"]
 const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne, nde)", "tetration (ne, nde)", "infinity (ne)", "standard (nde, notation activate is min of 1,000)"]
 
-Vue.createApp({
-  data() {
-	  return {
+var app = new Vue({
+  el: '#game',
+  data: {
 	game: game,
 	calcPrestige: calcPrestige,
 	notation: notation,
@@ -76,9 +76,8 @@ Vue.createApp({
 	toFixed: toFixed,
 	checkMPU: checkMPU,
 	calcBlP,
-	  }
   }
-}).mount("#game")
+})
 
 //window.onload = function() {if (game.usemixedstandard == true) document.getElementById("usemixednotation").checked = true};
 //setInterval(() => {if (game.tab == 2) {game.usemixedstandard = document.getElementById("usemixednotation").checked}}, 100)
