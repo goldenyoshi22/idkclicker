@@ -69,6 +69,9 @@ const notationnames = ["scientific", "logarithm", "real scientific", "cancer (ne
 var app = new Vue({
   el: '#game',
   data: {
+	ON: ON,
+	calcGP: calcGP,
+	decalcGP: decalcGP,
 	game: game,
 	calcPrestige: calcPrestige,
 	notation: notation,
